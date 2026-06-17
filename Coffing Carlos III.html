@@ -1,0 +1,1955 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coffing Carlos III – Café de Especialidad en Pamplona</title>
+  <meta name="description" content="Coffing Carlos III, cafetería de especialidad en la Av. Carlos III el Noble, 32, Pamplona. Desayunos artesanos, terraza para 50 personas, reparto a domicilio con Glovo y Uber Eats." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ══════════════════════════════
+       RESET & VARIABLES
+    ══════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:   #faf7f2;
+      --cream2:  #f3ede3;
+      --brown:   #3b2314;
+      --mocha:   #6b3f28;
+      --latte:   #c9956a;
+      --sand:    #e8ddd0;
+      --sand2:   #d4c4b0;
+      --text:    #2c1a0e;
+      --white:   #ffffff;
+      --radius:  14px;
+      --shadow:  0 4px 24px rgba(59,35,20,.10);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ══════════════════════════════
+       SCROLL PROGRESS BAR
+    ══════════════════════════════ */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--latte), var(--mocha));
+      z-index: 9999;
+      transition: width .1s linear;
+    }
+
+    /* ══════════════════════════════
+       NAV
+    ══════════════════════════════ */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      background: rgba(59,35,20,.97);
+      backdrop-filter: blur(12px);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 66px;
+      box-shadow: 0 2px 16px rgba(0,0,0,.35);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: var(--latte);
+      letter-spacing: .5px;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .nav-logo img {
+      height: 38px;
+      width: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #d4c4b0;
+      font-size: .88rem;
+      font-weight: 500;
+      letter-spacing: .3px;
+      transition: color .2s;
+      position: relative;
+      padding-bottom: 3px;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--latte);
+      transition: width .25s;
+    }
+
+    .nav-links a:hover { color: var(--latte); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+      background: none;
+      border: none;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--latte);
+      border-radius: 2px;
+      transition: all .3s;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 66px; left: 0; right: 0;
+      background: rgba(59,35,20,.98);
+      z-index: 490;
+      padding: 1.5rem 2rem;
+      flex-direction: column;
+      gap: 1.2rem;
+      transform: translateY(-10px);
+      opacity: 0;
+      transition: all .3s;
+    }
+
+    .mobile-menu.open {
+      display: flex;
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .mobile-menu a {
+      color: #d4c4b0;
+      font-size: 1rem;
+      font-weight: 500;
+      padding: .5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      transition: color .2s;
+    }
+
+    .mobile-menu a:hover { color: var(--latte); }
+
+    /* ══════════════════════════════
+       HERO
+    ══════════════════════════════ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      background: var(--brown);
+    }
+
+    /* Hero background con imagen real */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('interior2.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(.35) saturate(.8);
+      transform: scale(1.05);
+      transition: transform 8s ease;
+    }
+
+    .hero-bg.loaded { transform: scale(1); }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(59,35,20,.2) 0%,
+        rgba(59,35,20,.6) 60%,
+        rgba(59,35,20,.9) 100%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 2rem;
+      max-width: 760px;
+      animation: fadeUp .9s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(30px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(201,149,106,.18);
+      border: 1px solid rgba(201,149,106,.45);
+      border-radius: 999px;
+      padding: .4rem 1.2rem;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--latte);
+      margin-bottom: 1.6rem;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.6rem, 7vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 span { color: var(--latte); }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      color: rgba(255,255,255,.82);
+      max-width: 520px;
+      margin: 0 auto 2.2rem;
+    }
+
+    /* Rating stars */
+    .hero-rating {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .6rem;
+      margin-bottom: 2rem;
+      color: rgba(255,255,255,.75);
+      font-size: .88rem;
+    }
+
+    .stars { color: #f5c518; font-size: 1rem; letter-spacing: 2px; }
+
+    .btn-group {
+      display: flex;
+      gap: .8rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .8rem 1.8rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: .95rem;
+      cursor: pointer;
+      transition: transform .15s, box-shadow .15s, opacity .15s;
+      border: 2px solid transparent;
+      text-decoration: none;
+    }
+
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.3); }
+
+    .btn-primary  { background: var(--latte); color: var(--brown); }
+    .btn-outline  { background: transparent; border-color: rgba(255,255,255,.55); color: var(--white); }
+    .btn-glovo    { background: #00a082; color: #fff; }
+    .btn-uber     { background: #06c167; color: #000; font-weight: 800; }
+
+    .btn-glovo:hover  { background: #008a6f; }
+    .btn-uber:hover   { background: #04a556; }
+
+    /* Scroll indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .4rem;
+      color: rgba(255,255,255,.5);
+      font-size: .75rem;
+      letter-spacing: 1px;
+      animation: bounce 2s infinite;
+    }
+
+    .scroll-hint svg { width: 20px; opacity: .6; }
+
+    @keyframes bounce {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ══════════════════════════════
+       DELIVERY BANNER
+    ══════════════════════════════ */
+    .delivery-banner {
+      background: linear-gradient(135deg, var(--brown) 0%, var(--mocha) 100%);
+      color: var(--white);
+      padding: 1.2rem 2rem;
+      text-align: center;
+    }
+
+    .delivery-banner .inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .delivery-banner p {
+      font-size: .92rem;
+      font-weight: 500;
+      opacity: .88;
+    }
+
+    .delivery-btns {
+      display: flex;
+      gap: .7rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .delivery-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      padding: .5rem 1.3rem;
+      border-radius: 999px;
+      font-size: .85rem;
+      font-weight: 700;
+      transition: transform .15s, opacity .15s;
+    }
+
+    .delivery-btn:hover { transform: translateY(-1px); opacity: .9; }
+
+    .delivery-btn.glovo { background: #00a082; color: #fff; }
+    .delivery-btn.uber  { background: #06c167; color: #000; }
+
+    .delivery-time {
+      font-size: .72rem;
+      opacity: .75;
+      margin-top: 2px;
+    }
+
+    /* ══════════════════════════════
+       SECTIONS SHARED
+    ══════════════════════════════ */
+    section { padding: 5rem 2rem; }
+    .container { max-width: 1120px; margin: 0 auto; }
+
+    .section-label {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--latte);
+      margin-bottom: .6rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+      font-weight: 700;
+      color: var(--brown);
+      margin-bottom: 1rem;
+    }
+
+    .section-sub {
+      color: #6b5a4e;
+      max-width: 560px;
+      margin-bottom: 3rem;
+      font-size: 1.02rem;
+    }
+
+    /* Reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ══════════════════════════════
+       GALERÍA (FOTO STRIP)
+    ══════════════════════════════ */
+    .gallery-strip {
+      background: var(--brown);
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .gallery-track {
+      display: flex;
+      gap: 0;
+    }
+
+    .gallery-track .photo {
+      flex: 1;
+      min-width: 0;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .gallery-track .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .5s ease, filter .5s;
+      filter: brightness(.85);
+    }
+
+    .gallery-track .photo:hover img {
+      transform: scale(1.06);
+      filter: brightness(1);
+    }
+
+    .gallery-track .photo .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(59,35,20,.7) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity .4s;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.2rem;
+    }
+
+    .gallery-track .photo:hover .overlay { opacity: 1; }
+
+    .gallery-track .photo .overlay span {
+      color: var(--latte);
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* ══════════════════════════════
+       SOBRE NOSOTROS
+    ══════════════════════════════ */
+    #sobre { background: var(--cream); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .about-img-wrap {
+      position: relative;
+    }
+
+    .about-img-main {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .about-img-badge {
+      position: absolute;
+      bottom: -1.5rem;
+      right: -1.5rem;
+      background: var(--latte);
+      color: var(--brown);
+      border-radius: var(--radius);
+      padding: 1.2rem 1.4rem;
+      font-weight: 800;
+      font-size: 1rem;
+      box-shadow: 0 8px 24px rgba(201,149,106,.4);
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .about-img-badge span {
+      display: block;
+      font-size: 2rem;
+      font-weight: 900;
+    }
+
+    .about-text p {
+      margin-bottom: 1rem;
+      color: #4a3728;
+      font-size: 1.02rem;
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, var(--brown), var(--mocha));
+      color: var(--white);
+      border-radius: var(--radius);
+      padding: 1.6rem 1.8rem;
+      margin-top: 1.8rem;
+      font-size: .97rem;
+      line-height: 1.7;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .highlight-box::before {
+      content: '"';
+      position: absolute;
+      top: -.5rem; left: 1rem;
+      font-size: 6rem;
+      font-family: 'Playfair Display', serif;
+      color: rgba(201,149,106,.2);
+      line-height: 1;
+    }
+
+    .highlight-box strong { color: var(--latte); }
+
+    /* Stat chips */
+    .stat-chips {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1.8rem;
+    }
+
+    .stat-chip {
+      background: var(--sand);
+      border-radius: 999px;
+      padding: .5rem 1.2rem;
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--brown);
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+    }
+
+    /* ══════════════════════════════
+       MENÚ / CARTA
+    ══════════════════════════════ */
+    #menu { background: var(--cream2); }
+
+    /* Tab filter */
+    .menu-tabs {
+      display: flex;
+      gap: .6rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .menu-tab {
+      padding: .45rem 1.1rem;
+      border-radius: 999px;
+      border: 2px solid var(--sand2);
+      background: transparent;
+      color: var(--mocha);
+      font-size: .85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .2s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .menu-tab.active,
+    .menu-tab:hover {
+      background: var(--brown);
+      border-color: var(--brown);
+      color: var(--white);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.4rem;
+    }
+
+    .menu-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.8rem 1.6rem;
+      box-shadow: 0 2px 14px rgba(0,0,0,.06);
+      transition: transform .25s, box-shadow .25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .menu-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--latte), var(--mocha));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .3s;
+    }
+
+    .menu-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px rgba(0,0,0,.12); }
+    .menu-card:hover::before { transform: scaleX(1); }
+
+    .menu-icon { font-size: 2.4rem; margin-bottom: .9rem; }
+
+    .menu-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--brown);
+      margin-bottom: .4rem;
+    }
+
+    .menu-card p { font-size: .88rem; color: #6b5a4e; line-height: 1.55; }
+
+    .menu-card .tag {
+      display: inline-block;
+      background: var(--sand);
+      color: var(--mocha);
+      border-radius: 999px;
+      font-size: .7rem;
+      font-weight: 700;
+      padding: .18rem .65rem;
+      margin-top: .7rem;
+      letter-spacing: .5px;
+    }
+
+    /* Pedido online CTA */
+    .order-cta {
+      background: linear-gradient(135deg, var(--brown), var(--mocha));
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      text-align: center;
+      color: var(--white);
+      margin-top: 2.5rem;
+    }
+
+    .order-cta h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      margin-bottom: .7rem;
+    }
+
+    .order-cta p { opacity: .82; margin-bottom: 1.6rem; font-size: .97rem; }
+
+    .order-cta .platforms {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.4rem;
+    }
+
+    .platform-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      padding: .75rem 1.6rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: .92rem;
+      transition: transform .15s, box-shadow .15s;
+    }
+
+    .platform-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.3); }
+
+    .platform-btn.glovo { background: #00a082; color: #fff; }
+    .platform-btn.uber  { background: #06c167; color: #000; }
+    .platform-btn.web   { background: var(--latte); color: var(--brown); }
+
+    .platform-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .9rem;
+    }
+
+    .delivery-info-row {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .delivery-info-item {
+      text-align: center;
+      opacity: .82;
+    }
+
+    .delivery-info-item strong {
+      display: block;
+      font-size: 1.1rem;
+      color: var(--latte);
+    }
+
+    .delivery-info-item span { font-size: .8rem; }
+
+    /* ══════════════════════════════
+       HORARIOS (INFO STRIP)
+    ══════════════════════════════ */
+    #horarios {
+      background: linear-gradient(135deg, var(--brown) 0%, #2a1a0e 100%);
+      color: var(--white);
+    }
+
+    .info-cols {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .info-col h3 {
+      color: var(--latte);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .info-col p,
+    .info-col li {
+      font-size: .92rem;
+      opacity: .85;
+      margin-bottom: .5rem;
+      list-style: none;
+    }
+
+    .info-col ul { list-style: none; }
+
+    .info-col li::before {
+      content: '→ ';
+      color: var(--latte);
+      font-size: .85rem;
+    }
+
+    .badge-new {
+      display: inline-block;
+      background: var(--latte);
+      color: var(--brown);
+      font-weight: 800;
+      font-size: .65rem;
+      padding: .1rem .5rem;
+      border-radius: 999px;
+      letter-spacing: .5px;
+      vertical-align: middle;
+      text-transform: uppercase;
+    }
+
+    .open-now {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      color: #4ade80;
+      font-size: .82rem;
+      font-weight: 600;
+    }
+
+    .open-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #4ade80;
+      animation: pulse-green 2s infinite;
+    }
+
+    @keyframes pulse-green {
+      0%,100% { opacity:1; box-shadow: 0 0 0 0 rgba(74,222,128,.4); }
+      50%      { box-shadow: 0 0 0 6px rgba(74,222,128,0); }
+    }
+
+    /* ══════════════════════════════
+       FEATURES / POR QUÉ COFFING
+    ══════════════════════════════ */
+    #diferencial { background: var(--cream); }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1.4rem;
+    }
+
+    .feature-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2rem;
+      border-left: 4px solid var(--latte);
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .feature-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,.1); }
+
+    .feature-card .icon { font-size: 2rem; margin-bottom: .8rem; }
+    .feature-card h3 { font-weight: 700; color: var(--brown); margin-bottom: .5rem; font-size: 1.05rem; }
+    .feature-card p  { font-size: .9rem; color: #6b5a4e; }
+
+    /* ══════════════════════════════
+       RESEÑAS
+    ══════════════════════════════ */
+    #resenas { background: var(--cream2); }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.4rem;
+    }
+
+    .review-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,.07);
+      position: relative;
+    }
+
+    .review-card .quote-mark {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      color: var(--latte);
+      opacity: .25;
+      line-height: .6;
+      margin-bottom: .5rem;
+    }
+
+    .review-card p {
+      font-size: .92rem;
+      color: #4a3728;
+      font-style: italic;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .reviewer {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+    }
+
+    .reviewer-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--sand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .reviewer-info strong {
+      display: block;
+      font-size: .88rem;
+      color: var(--brown);
+    }
+
+    .reviewer-info .r-stars { color: #f5c518; font-size: .82rem; }
+
+    .google-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2.5rem;
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.4rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,.07);
+    }
+
+    .rating-big { font-size: 3rem; font-weight: 800; color: var(--brown); }
+    .rating-stars-big { color: #f5c518; font-size: 1.4rem; }
+    .rating-count { font-size: .85rem; color: #6b5a4e; }
+
+    /* ══════════════════════════════
+       MAPA
+    ══════════════════════════════ */
+    #ubicacion { background: var(--sand); }
+
+    .map-wrapper {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 6px 28px rgba(0,0,0,.13);
+    }
+
+    .map-wrapper iframe { width: 100%; height: 440px; border: 0; display: block; }
+
+    .map-info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1.8rem;
+    }
+
+    .map-info-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.6rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,.07);
+    }
+
+    .map-info-card h4 {
+      color: var(--brown);
+      font-weight: 700;
+      margin-bottom: .6rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .map-info-card p { font-size: .9rem; color: #4a3728; margin-bottom: .3rem; }
+
+    /* ══════════════════════════════
+       CONTACTO
+    ══════════════════════════════ */
+    #contacto { background: var(--cream); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5rem;
+      align-items: start;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .contact-icon {
+      width: 48px; height: 48px;
+      background: var(--sand);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    }
+
+    .contact-item h4 { font-weight: 700; color: var(--brown); margin-bottom: .25rem; }
+    .contact-item p  { font-size: .9rem; color: #6b5a4e; }
+    .contact-item a  { color: var(--mocha); transition: color .2s; }
+    .contact-item a:hover { color: var(--latte); }
+
+    /* Form */
+    .form-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2.2rem;
+      box-shadow: 0 4px 22px rgba(0,0,0,.09);
+    }
+
+    .form-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      color: var(--brown);
+      margin-bottom: 1.4rem;
+      font-size: 1.3rem;
+    }
+
+    .form-group { margin-bottom: 1.1rem; }
+
+    .form-group label {
+      display: block;
+      font-size: .83rem;
+      font-weight: 600;
+      color: var(--mocha);
+      margin-bottom: .3rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: .7rem 1rem;
+      border: 1.5px solid var(--sand2);
+      border-radius: 8px;
+      font-size: .9rem;
+      background: var(--cream);
+      color: var(--text);
+      transition: border-color .2s, box-shadow .2s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--latte);
+      box-shadow: 0 0 0 3px rgba(201,149,106,.18);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 110px; }
+
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--brown), var(--mocha));
+      color: var(--white);
+      border: none;
+      padding: .9rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: opacity .2s, transform .15s;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+    }
+
+    .btn-submit:hover { opacity: .88; transform: translateY(-1px); }
+
+    /* ══════════════════════════════
+       FOOTER
+    ══════════════════════════════ */
+    footer {
+      background: #1a0d07;
+      color: rgba(255,255,255,.65);
+      text-align: center;
+      padding: 3rem 2rem 2rem;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--latte);
+      margin-bottom: .5rem;
+    }
+
+    footer p { font-size: .85rem; margin-bottom: .35rem; }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.8rem;
+      flex-wrap: wrap;
+      margin: 1.2rem 0;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: .82rem;
+      opacity: .65;
+      transition: opacity .2s, color .2s;
+    }
+
+    .footer-links a:hover { opacity: 1; color: var(--latte); }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: .8rem;
+      margin: 1.2rem 0;
+    }
+
+    .social-links a {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: background .2s, border-color .2s, transform .2s;
+    }
+
+    .social-links a:hover {
+      background: var(--latte);
+      border-color: var(--latte);
+      transform: translateY(-2px);
+    }
+
+    .footer-bottom {
+      margin-top: 1.5rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(255,255,255,.08);
+      font-size: .78rem;
+      opacity: .45;
+    }
+
+    /* ══════════════════════════════
+       FLOATING ORDER BUTTON
+    ══════════════════════════════ */
+    .float-order {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 400;
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+      align-items: flex-end;
+    }
+
+    .float-btn {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .65rem 1.2rem;
+      border-radius: 999px;
+      font-size: .85rem;
+      font-weight: 700;
+      box-shadow: 0 4px 20px rgba(0,0,0,.3);
+      transition: transform .15s, box-shadow .15s;
+      white-space: nowrap;
+    }
+
+    .float-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.35); }
+    .float-btn.glovo { background: #00a082; color: #fff; }
+    .float-btn.uber  { background: #06c167; color: #000; }
+
+    .float-label {
+      background: var(--brown);
+      color: var(--latte);
+      border-radius: 999px;
+      padding: .4rem 1rem;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      box-shadow: 0 2px 10px rgba(0,0,0,.2);
+    }
+
+    /* ══════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════ */
+    @media (max-width: 768px) {
+      nav { padding: 0 1rem; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .about-grid,
+      .map-info,
+      .contact-grid { grid-template-columns: 1fr; }
+
+      .about-img-badge { bottom: .5rem; right: .5rem; }
+
+      section { padding: 3.5rem 1.2rem; }
+
+      .gallery-track { flex-direction: column; }
+      .gallery-track .photo { aspect-ratio: 16/9; flex: none; }
+
+      .float-order { bottom: 1rem; right: 1rem; }
+      .float-btn { padding: .55rem .9rem; font-size: .8rem; }
+
+      .delivery-banner .inner { flex-direction: column; gap: .8rem; }
+
+      .order-cta { padding: 1.8rem 1.2rem; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 2.2rem; }
+      .btn { padding: .7rem 1.3rem; font-size: .88rem; }
+      .float-label { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- PROGRESS BAR -->
+<div id="progress-bar"></div>
+
+<!-- ════════════════════════════
+     NAV
+════════════════════════════ -->
+<nav>
+  <div class="nav-logo">
+    ☕ Coffing
+  </div>
+  <ul class="nav-links">
+    <li><a href="#sobre">Nosotros</a></li>
+    <li><a href="#menu">Carta</a></li>
+    <li><a href="#horarios">Horarios</a></li>
+    <li><a href="#diferencial">¿Por qué Coffing?</a></li>
+    <li><a href="#resenas">Reseñas</a></li>
+    <li><a href="#ubicacion">Ubicación</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#sobre" onclick="closeMobile()">Nosotros</a>
+  <a href="#menu" onclick="closeMobile()">Carta</a>
+  <a href="#horarios" onclick="closeMobile()">Horarios</a>
+  <a href="#diferencial" onclick="closeMobile()">¿Por qué Coffing?</a>
+  <a href="#resenas" onclick="closeMobile()">Reseñas</a>
+  <a href="#ubicacion" onclick="closeMobile()">Ubicación</a>
+  <a href="#contacto" onclick="closeMobile()">Contacto</a>
+</div>
+
+<!-- ════════════════════════════
+     HERO
+════════════════════════════ -->
+<header class="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">☕ Café de Especialidad · Pamplona</div>
+
+    <h1>Coffing <span>Carlos III</span></h1>
+
+    <p class="hero-sub">
+      Tu rincón favorito en el Ensanche de Pamplona. Desayunos artesanos,
+      café de origen único y terraza para casi 50 personas.
+    </p>
+
+    <div class="hero-rating">
+      <span class="stars">★★★★★</span>
+      <strong style="color:#fff">4.7</strong>
+      <span>· Más de 300 reseñas en Google</span>
+    </div>
+
+    <div class="btn-group">
+      <a href="https://glovoapp.com/es/es/pamplona/stores/coffing-pamplona?utm_source=google&utm_medium=organic&utm_campaign=google_reserve_place_order_action"
+         target="_blank" class="btn btn-glovo">
+        🟢 Pedir en Glovo
+      </a>
+      <a href="https://www.ubereats.com/es/store/coffing-carlos-iii/4f4EDX3OWZ6xr5dwcm84Uw?diningMode=PICKUP"
+         target="_blank" class="btn btn-uber">
+        🚗 Pedir en Uber Eats
+      </a>
+      <a href="#ubicacion" class="btn btn-outline">📍 Cómo llegar</a>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Descubre más</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M19 9l-7 7-7-7"/>
+    </svg>
+  </div>
+</header>
+
+<!-- ════════════════════════════
+     DELIVERY BANNER
+════════════════════════════ -->
+<div class="delivery-banner">
+  <div class="inner">
+    <p>🛵 <strong>Pedidos a domicilio disponibles</strong> — Recibe tu pedido en casa</p>
+    <div class="delivery-btns">
+      <a href="https://glovoapp.com/es/es/pamplona/stores/coffing-pamplona?utm_source=google&utm_medium=organic&utm_campaign=google_reserve_place_order_action"
+         target="_blank" class="delivery-btn glovo">
+        🟢 Glovo
+        <span class="delivery-time">· 13–45 min · desde 0,19€</span>
+      </a>
+      <a href="https://www.ubereats.com/es/store/coffing-carlos-iii/4f4EDX3OWZ6xr5dwcm84Uw?diningMode=PICKUP"
+         target="_blank" class="delivery-btn uber">
+        🚗 Uber Eats
+        <span class="delivery-time">· 22–37 min</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════
+     GALERÍA
+════════════════════════════ -->
+<div class="gallery-strip">
+  <div class="gallery-track">
+    <div class="photo">
+      <img src="fachada.jpg" alt="Fachada Coffing Carlos III" loading="lazy" />
+      <div class="overlay"><span>Fachada</span></div>
+    </div>
+    <div class="photo">
+      <img src="interior1.jpg" alt="Interior cafetería Coffing" loading="lazy" />
+      <div class="overlay"><span>Interior</span></div>
+    </div>
+    <div class="photo">
+      <img src="interior2.jpg" alt="Barra y vitrina Coffing" loading="lazy" />
+      <div class="overlay"><span>Barra & Vitrina</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════
+     SOBRE NOSOTROS
+════════════════════════════ -->
+<section id="sobre">
+  <div class="container">
+    <div class="about-grid reveal">
+      <div class="about-img-wrap">
+        <img
+          src="fachada.jpg"
+          alt="Fachada exterior Coffing Carlos III"
+          class="about-img-main"
+          loading="lazy"
+        />
+        <div class="about-img-badge">
+          <span>+30</span>
+          trabajadores
+        </div>
+      </div>
+
+      <div class="about-text">
+        <div class="section-label">Nuestra historia</div>
+        <h2 class="section-title">Desde 2016, el café que tú quieres</h2>
+
+        <p>
+          Coffing nació en 2016 en la calle Castillo de Maya de Pamplona, de la mano de
+          <strong>Myriam Borda y Ramón Romero</strong>, con una idea clara: servir el café
+          que quiere el cliente, no el que decide la cafetería.
+        </p>
+
+        <p>
+          En 2025, el negocio creció y encontraron el local ideal para dar el siguiente paso:
+          <strong>Av. Carlos III el Noble, 32</strong>. Más espacio, terraza para casi
+          50 personas y apertura también en domingo.
+        </p>
+
+        <p>
+          El grupo Coffing cuenta hoy con <strong>tres establecimientos en Pamplona</strong>
+          y más de 30 trabajadores, manteniendo siempre la esencia del café de especialidad
+          y los desayunos artesanos.
+        </p>
+
+        <div class="stat-chips">
+          <div class="stat-chip">☕ Desde 2016</div>
+          <div class="stat-chip">🏪 3 locales</div>
+          <div class="stat-chip">🌿 Café de especialidad</div>
+          <div class="stat-chip">🍳 Abierto en domingo</div>
+        </div>
+
+        <div class="highlight-box">
+          <strong>¿Un macchiato de café etíope con leche de avena y un cisne?</strong>
+          Te lo servimos.<br/>
+          ¿Un cortado? También. Nos gusta verte con el café que quieres tú.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════
+     MENÚ / CARTA
+════════════════════════════ -->
+<section id="menu">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Nuestra carta</div>
+      <h2 class="section-title">Algo rico para cada momento</h2>
+      <p class="section-sub">
+        Café de especialidad, desayunos artesanos, opciones saludables y mucho más.
+        Todo disponible también a domicilio vía Glovo y Uber Eats.
+      </p>
+    </div>
+
+    <div class="menu-tabs reveal">
+      <button class="menu-tab active" data-filter="all">Todo</button>
+      <button class="menu-tab" data-filter="cafe">Cafés</button>
+      <button class="menu-tab" data-filter="desayuno">Desayunos</button>
+      <button class="menu-tab" data-filter="dulce">Dulces</button>
+      <button class="menu-tab" data-filter="bebida">Bebidas</button>
+    </div>
+
+    <div class="menu-grid reveal" id="menuGrid">
+
+      <div class="menu-card" data-cat="cafe">
+        <div class="menu-icon">☕</div>
+        <h3>Cafés de especialidad</h3>
+        <p>Espresso, cortado, macchiato, cappuccino, flat white… Con leches vegetales o de vaca. El café que tú eliges.</p>
+        <span class="tag">☕ Especialidad</span>
+      </div>
+
+      <div class="menu-card" data-cat="desayuno">
+        <div class="menu-icon">🥑</div>
+        <h3>Tostadas & Focaccias</h3>
+        <p>Tostadas de aguacate, focaccias artesanas y bagels. El desayuno que te mereces.</p>
+        <span class="tag">🌅 Desayuno</span>
+      </div>
+
+      <div class="menu-card" data-cat="dulce">
+        <div class="menu-icon">🎂</div>
+        <h3>Tartas & Bizcochos</h3>
+        <p>Elaboración propia. Tartas del día, bizcochos caseros y dulces para acompañar tu café.</p>
+        <span class="tag">🏠 Artesano</span>
+      </div>
+
+      <div class="menu-card" data-cat="desayuno">
+        <div class="menu-icon">🥗</div>
+        <h3>Mediodía (Carlos III)</h3>
+        <p>Ensaladas y platos rápidos disponibles al mediodía. Exclusivo del local de Carlos III.</p>
+        <span class="tag">⭐ Exclusivo</span>
+      </div>
+
+      <div class="menu-card" data-cat="bebida">
+        <div class="menu-icon">🍵</div>
+        <h3>Infusiones & Bebidas</h3>
+        <p>Selección de tés e infusiones, batidos naturales y zumos recién hechos.</p>
+        <span class="tag">🌿 Natural</span>
+      </div>
+
+      <div class="menu-card" data-cat="desayuno">
+        <div class="menu-icon">🫐</div>
+        <h3>Açaí Bowls</h3>
+        <p>Grandes bowls de açaí con toppings. Opción sana, deliciosa y con mucho color.</p>
+        <span class="tag">💪 Saludable</span>
+      </div>
+
+      <div class="menu-card" data-cat="desayuno">
+        <div class="menu-icon">🥚</div>
+        <h3>Huevos Benedictinos</h3>
+        <p>Un brunch de verdad. Huevos benedictinos con salsa holandesa, el favorito del fin de semana.</p>
+        <span class="tag">🍳 Brunch</span>
+      </div>
+
+      <div class="menu-card" data-cat="dulce">
+        <div class="menu-icon">🎁</div>
+        <h3>Bonos Regalo</h3>
+        <p>Regala una experiencia Coffing. Disponibles para desayunos, tartas y pedidos a domicilio.</p>
+        <span class="tag">🎀 Regalo</span>
+      </div>
+
+    </div>
+
+    <!-- CTA Pedido Online -->
+    <div class="order-cta reveal">
+      <h3>¿Lo quieres en casa? 🛵</h3>
+      <p>Pide directamente desde Glovo o Uber Eats y recíbelo en tu puerta</p>
+
+      <div class="platforms">
+        <a href="https://glovoapp.com/es/es/pamplona/stores/coffing-pamplona?utm_source=google&utm_medium=organic&utm_campaign=google_reserve_place_order_action"
+           target="_blank" class="platform-btn glovo">
+          <span class="platform-icon">🟢</span>
+          Pedir en Glovo
+        </a>
+        <a href="https://www.ubereats.com/es/store/coffing-carlos-iii/4f4EDX3OWZ6xr5dwcm84Uw?diningMode=PICKUP"
+           target="_blank" class="platform-btn uber">
+          <span class="platform-icon">🚗</span>
+          Pedir en Uber Eats
+        </a>
+      </div>
+
+      <div class="delivery-info-row">
+        <div class="delivery-info-item">
+          <strong>13–45 min</strong>
+          <span>Glovo · desde 0,19€</span>
+        </div>
+        <div class="delivery-info-item">
+          <strong>22–37 min</strong>
+          <span>Uber Eats</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════
+     HORARIOS & DATOS
+════════════════════════════ -->
+<section id="horarios">
+  <div class="container">
+    <div class="section-label" style="color:var(--latte)">Información práctica</div>
+    <h2 class="section-title" style="color:var(--white); font-family:'Playfair Display',serif">
+      Horarios & Contacto
+    </h2>
+
+    <div class="info-cols reveal">
+
+      <div class="info-col">
+        <h3>📍 Dirección</h3>
+        <p>Av. Carlos III el Noble, 32</p>
+        <p>31002 Pamplona, Navarra</p>
+        <p style="margin-top:.6rem; opacity:.55; font-size:.82rem">Antiguo local Avocado</p>
+      </div>
+
+      <div class="info-col">
+        <h3>🕐 Horarios <span class="badge-new">Nuevo local</span></h3>
+        <ul>
+          <li>Lunes – Viernes: 7:30 – 20:00</li>
+          <li>Sábados: 8:00 – 20:00</li>
+          <li>Domingos: 8:30 – 14:00</li>
+        </ul>
+        <div class="open-now" style="margin-top:.8rem">
+          <div class="open-dot"></div>
+          Abierto ahora
+        </div>
+      </div>
+
+      <div class="info-col">
+        <h3>📞 Contacto</h3>
+        <p>Teléfono:
+          <a href="tel:948041425" style="color:var(--latte); font-weight:600">
+            948 04 14 25
+          </a>
+        </p>
+        <p style="margin-top:.5rem">Pedidos online:</p>
+        <p>
+          <a href="https://glovoapp.com/es/es/pamplona/stores/coffing-pamplona?utm_source=google&utm_medium=organic&utm_campaign=google_reserve_place_order_action"
+             target="_blank" style="color:var(--latte)">
+            🟢 Glovo
+          </a>
+          &nbsp;·&nbsp;
+          <a href="https://www.ubereats.com/es/store/coffing-carlos-iii/4f4EDX3OWZ6xr5dwcm84Uw?diningMode=PICKUP"
+             target="_blank" style="color:var(--latte)">
+            🚗 Uber Eats
+          </a>
+        </p>
+      </div>
+
+      <div class="info-col">
+        <h3>✨ Destacado</h3>
+        <ul>
+          <li>Terraza · ~50 personas</li>
+          <li>Reparto a domicilio</li>
+          <li>Abierto en domingo</li>
+          <li>Carta de mediodía</li>
+          <li>Tarjetas regalo</li>
+          <li>Catering & eventos</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════
+     POR QUÉ COFFING
+════════════════════════════ -->
+<section id="diferencial">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">¿Por qué Coffing?</div>
+      <h2 class="section-title">Lo que nos hace diferentes</h2>
+      <p class="section-sub">No somos solo una cafetería. Somos tu momento del día.</p>
+    </div>
+
+    <div class="features-grid reveal">
+
+      <div class="feature-card">
+        <div class="icon">🌱</div>
+        <h3>Café de origen único</h3>
+        <p>Trabajamos con cafés de especialidad de origen trazado. Cada taza tiene historia, variedad y sabor auténtico.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="icon">🛵</div>
+        <h3>Reparto a domicilio</h3>
+        <p>Desayunos, tartas y pedidos en tu puerta. Disponible a través de <strong>Glovo</strong> y <strong>Uber Eats</strong>.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="icon">☀️</div>
+        <h3>Terraza soleada</h3>
+        <p>Casi 50 plazas de terraza en la Avenida Carlos III. El mejor sitio para empezar el día en Pamplona.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="icon">🍽️</div>
+        <h3>Carta de mediodía</h3>
+        <p>Único entre los locales Coffing: ensaladas y opciones ligeras para el mediodía, también en domingo.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="icon">❤️</div>
+        <h3>Proyecto local y familiar</h3>
+        <p>Fundado por Myriam y Ramón en Pamplona. Un negocio con valores, crecido desde cero con mucho cariño.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="icon">🎁</div>
+        <h3>Bonos y regalos</h3>
+        <p>Regala una experiencia única: desayuno en la terraza, tarta a domicilio o un bono personalizado.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════
+     RESEÑAS
+════════════════════════════ -->
+<section id="resenas">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Lo que dicen nuestros clientes</div>
+      <h2 class="section-title">Reseñas reales</h2>
+      <p class="section-sub">Más de 300 opiniones en Google. Aquí van algunas de las favoritas.</p>
+    </div>
+
+    <div class="reviews-grid reveal">
+
+      <div class="review-card">
+        <div class="quote-mark">"</div>
+        <p>El mejor café de especialidad de Pamplona sin duda. La terraza es perfecta para los desayunos del fin de semana. El personal es encantador.</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">👩</div>
+          <div class="reviewer-info">
+            <strong>Laura M.</strong>
+            <div class="r-stars">★★★★★</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="quote-mark">"</div>
+        <p>Los huevos benedictinos son espectaculares. Pedí también por Glovo y llegó todo perfecto y a tiempo. 100% recomendable.</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">👨</div>
+          <div class="reviewer-info">
+            <strong>Carlos R.</strong>
+            <div class="r-stars">★★★★★</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="quote-mark">"</div>
+        <p>Me encanta que puedes pedir exactamente el café que quieres: leche vegetal, temperatura, intensidad... Sin problemas. Único en Pamplona.</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">👩</div>
+          <div class="reviewer-info">
+            <strong>Ana G.</strong>
+            <div class="r-stars">★★★★★</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Rating badge Google -->
+    <div class="google-badge reveal">
+      <div>
+        <div class="rating-big">4.7</div>
+        <div class="rating-stars-big">★★★★★</div>
+        <div class="rating-count">+300 reseñas en Google</div>
+      </div>
+      <div style="text-align:left; padding-left:1.5rem; border-left: 2px solid var(--sand);">
+        <p style="font-size:.95rem; color:var(--brown); font-weight:600; margin-bottom:.3rem">
+          Valoración excelente
+        </p>
+        <p style="font-size:.85rem; color:#6b5a4e;">
+          Coffing Carlos III es uno de los establecimientos<br/>
+          mejor valorados del Ensanche de Pamplona.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════
+     MAPA
+════════════════════════════ -->
+<section id="ubicacion">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Dónde estamos</div>
+      <h2 class="section-title">Encuéntranos en el Ensanche</h2>
+      <p class="section-sub">
+        En la Avenida Carlos III el Noble, 32 — una de las principales arterias del centro de Pamplona.
+      </p>
+    </div>
+
+    <div class="map-wrapper reveal">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2935.3!2d-1.6376891!3d42.8114602!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd509254c55bed3b%3A0xfc2b3d7713e973b2!2sCoffing%20Carlos%20III!5e0!3m2!1ses!2ses!4v1718614800000!5m2!1ses!2ses"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Mapa Coffing Carlos III Pamplona">
+      </iframe>
+    </div>
+
+    <div class="map-info reveal">
+      <div class="map-info-card">
+        <h4>📍 Dirección completa</h4>
+        <p><strong>Av. Carlos III el Noble, 32</strong></p>
+        <p>31002 Pamplona, Navarra</p>
+        <p style="margin-top:.5rem; font-size:.85rem; color:#888">
+          Cerca del Paseo de Sarasate y la Plaza del Castillo
+        </p>
+      </div>
+      <div class="map-info-card">
+        <h4>🚶 Cómo llegar</h4>
+        <p>A pie desde la Plaza del Castillo: ~8 min</p>
+        <p>Autobús urbano: líneas que pasan por Carlos III</p>
+        <p>Aparcamiento: Parking Carlos III (subterráneo)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════
+     CONTACTO
+════════════════════════════ -->
+<section id="contacto">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Contacto</div>
+      <h2 class="section-title">Hablemos</h2>
+    </div>
+
+    <div class="contact-grid">
+      <div class="reveal">
+
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div>
+            <h4>Teléfono</h4>
+            <p><a href="tel:948041425">948 04 14 25</a></p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">🌐</div>
+          <div>
+            <h4>Web y pedidos</h4>
+            <p><a href="https://coffing.es" target="_blank">coffing.es</a></p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <h4>Dirección</h4>
+            <p>Av. Carlos III el Noble, 32</p>
+            <p>31002 Pamplona, Navarra</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">🛵</div>
+          <div>
+            <h4>Pedidos a domicilio</h4>
+            <p>
+              <a href="https://glovoapp.com/es/es/pamplona/stores/coffing-pamplona?utm_source=google&utm_medium=organic&utm_campaign=google_reserve_place_order_action"
+                 target="_blank">🟢 Glovo</a>
+              &nbsp;·&nbsp;
+              <a href="https://www.ubereats.com/es/store/coffing-carlos-iii/4f4EDX3OWZ6xr5dwcm84Uw?diningMode=PICKUP"
+                 target="_blank">🚗 Uber Eats</a>
+            </p>
+            <p>Desayunos, tartas y carta</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">🏢</div>
+          <div>
+            <h4>Catering & eventos</h4>
+            <p>Disponible para eventos privados y empresas. Consúltanos.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-card reveal">
+        <h3>✉️ Escríbenos</h3>
+        <form onsubmit="handleSubmit(event)">
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" placeholder="Tu nombre" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="tu@email.com" required />
+          </div>
+          <div class="form-group">
+            <label for="asunto">Asunto</label>
+            <select id="asunto">
+              <option value="">Selecciona un asunto</option>
+              <option>Reserva de terraza</option>
+              <option>Catering o evento</option>
+              <option>Pedido especial</option>
+              <option>Bono regalo</option>
+              <option>Otro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" placeholder="¿En qué podemos ayudarte?"></textarea>
+          </div>
+          <button type="submit" class="btn-submit">
+            Enviar mensaje ☕
+          </button>
+          <p id="form-ok" style="display:none; text-align:center; margin-top:.8rem; color:#4ade80; font-weight:600">
+            ✅ ¡Mensaje enviado! Te contactamos pronto.
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════
+     FOOTER
+════════════════════════════ -->
+<footer>
+  <div class="footer-logo">☕ Coffing Carlos III</div>
+  <p>Av. Carlos III el Noble, 32 · 31002 Pamplona, Navarra</p>
+  <p>948 04 14 25</p>
+
+  <ul class="footer-links">
+    <li><a href="#sobre">Nosotros</a></li>
+    <li><a href="#menu">Carta</a></li>
+    <li><a href="#horarios">Horarios</a></li>
+    <li><a href="#ubicacion">Ubicación</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+
+  <div class="social-links">
+    <a href="https://www.instagram.com/coffing.es/" target="_blank" title="Instagram">📷</a>
+    <a href="https://glovoapp.com/es/es/pamplona/stores/coffing-pamplona?utm_source=google&utm_medium=organic&utm_campaign=google_reserve_place_order_action"
+       target="_blank" title="Glovo">🟢</a>
+    <a href="https://www.ubereats.com/es/store/coffing-carlos-iii/4f4EDX3OWZ6xr5dwcm84Uw?diningMode=PICKUP"
+       target="_blank" title="Uber Eats">🚗</a>
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 Coffing · Todos los derechos reservados · Café de Especialidad en Pamplona
+  </div>
+</footer>
+
+<!-- ════════════════════════════
+     FLOATING ORDER BUTTONS
+════════════════════════════ -->
+<div class="float-order">
+  <div class="float-label">Pedir ahora</div>
+  <a href="https://glovoapp.com/es/es/pamplona/stores/coffing-pamplona?utm_source=google&utm_medium=organic&utm_campaign=google_reserve_place_order_action"
+     target="_blank" class="float-btn glovo">
+    🟢 Glovo <small>13–45 min</small>
+  </a>
+  <a href="https://www.ubereats.com/es/store/coffing-carlos-iii/4f4EDX3OWZ6xr5dwcm84Uw?diningMode=PICKUP"
+     target="_blank" class="float-btn uber">
+    🚗 Uber Eats <small>22–37 min</small>
+  </a>
+</div>
+
+<!-- ════════════════════════════
+     JAVASCRIPT
+════════════════════════════ -->
+<script>
+  /* --- Progress bar --- */
+  window.addEventListener('scroll', () => {
+    const el = document.getElementById('progress-bar');
+    const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+    el.style.width = pct + '%';
+  });
+
+  /* --- Hero BG loaded --- */
+  window.addEventListener('load', () => {
+    document.getElementById('heroBg').classList.add('loaded');
+  });
+
+  /* --- Hamburger --- */
+  const ham = document.getElementById('hamburger');
+  const mob = document.getElementById('mobileMenu');
+
+  ham.addEventListener('click', () => {
+    ham.classList.toggle('open');
+    mob.classList.toggle('open');
+  });
+
+  function closeMobile() {
+    ham.classList.remove('open');
+    mob.classList.remove('open');
+  }
+
+  /* --- Reveal on scroll --- */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* --- Menu tabs filter --- */
+  const tabs = document.querySelectorAll('.menu-tab');
+  const cards = document.querySelectorAll('.menu-card');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      const filter = tab.dataset.filter;
+      cards.forEach(card => {
+        if (filter === 'all' || card.dataset.cat === filter) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  /* --- Form submit --- */
+  function handleSubmit(e) {
+    e.preventDefault();
+    document.getElementById('form-ok').style.display = 'block';
+    e.target.reset();
+  }
+
+  /* --- Hide floating buttons when at top --- */
+  const floatOrder = document.querySelector('.float-order');
+  window.addEventListener('scroll', () => {
+    floatOrder.style.opacity = window.scrollY > 300 ? '1' : '0';
+    floatOrder.style.pointerEvents = window.scrollY > 300 ? 'all' : 'none';
+  });
+  floatOrder.style.opacity = '0';
+  floatOrder.style.transition = 'opacity .3s';
+</script>
+
+</body>
+</html>
